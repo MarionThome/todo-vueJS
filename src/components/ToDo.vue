@@ -1,57 +1,54 @@
+
 <script>
-let todoId = 0
+import List from "./List.vue"
+import Form from "./Form.vue"
+let todoId = 0;
+
 export default {
+  components: {
+    List, Form
+  },
   data() {
     return {
       clicked: 0,
       newTodo: "",
-      todos: [{
-        id: todoId++,
-        task:' Try this todo', 
-        completed: false
-      }]
-    }
-  }, 
-  methods : {
-    addTodo(){
-      this.todos.push({id : todoId++, task : this.newTodo, completed : false})
-      this.newTodo = ""
-    },
-    removeToDo(todo){
-      console.log(todo)
-      this.todos = this.todos.filter((t) => {
-        return t !== todo
-      })
-    },
-    reset(){
-      this.todos = []
+      todos: [
+        {
+          id: todoId++,
+          task: "Try this todo",
+          completed: false,
+        },
+      ],
     }
   },
-  // computed : {
-  //   filtered(){
-  //     return this.todos.filter(e => e.completed)
-  //   }
-  // }
+  methods: {
+    addTodo(newTodo) {
+      this.todos.push({
+        id: todoId++,
+        task: newTodo,
+        completed: false,
+      });
+      this.newTodo = "";
+    },
+    removeToDo(todo) {
+      console.log(todo);
+      this.todos = this.todos.filter((t) => {
+        return t !== todo;
+      });
+    },
+    reset() {
+      this.todos = [];
+    },
+  }
 }
 </script>
 
 <template>
   <div id="main">
     <h1>Todo</h1>
-    <form @submit.prevent = "addTodo">
-      <input type="text" placeholder="Add Task" v-model="newTodo" />
-      <button type="submit">Add</button>
-    </form>
-    <div> Completed : {{ this.todos.filter(e => e.completed).length }} / {{ this.todos.length }}</div>
-    <ul class="todo-list">
-      <li v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
-        <input type = "checkbox" v-model="todo.completed">
-        <label>
-          {{ todo.task }}
-        </label>
-        <button @click="removeToDo(todo)">x</button>
-      </li>
-    </ul>
+    <Form @add="addTodo" :newTodo="this.newTodo"></Form>
+    <div> Completed : {{ this.todos.filter(e => e.completed).length }} / {{ this.todos.length }} </div>
+    <List :todos="this.todos" @remove="removeToDo" />
     <button @click="reset()">Clear All</button>
   </div>
 </template>
@@ -68,14 +65,5 @@ h1 {
 
 input {
   text-align: center;
-}
-
-li.completed label{
-  text-decoration: line-through;
-  color: red;
-}
-
-ul {
-    list-style-type: none;
 }
 </style>
