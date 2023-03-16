@@ -1,11 +1,11 @@
 <script setup>
 
-import TheWelcome from './components/TheWelcome.vue'
+import ToDo from './components/ToDo.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <ToDo />
   </main>
 </template>
 
