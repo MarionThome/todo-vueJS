@@ -26,7 +26,12 @@ export default {
     reset(){
       this.todos = []
     }
-  }
+  },
+  // computed : {
+  //   filtered(){
+  //     return this.todos.filter(e => e.completed)
+  //   }
+  // }
 }
 </script>
 
@@ -37,6 +42,7 @@ export default {
       <input type="text" placeholder="Add Task" v-model="newTodo" />
       <button type="submit">Add</button>
     </form>
+    <div> Completed : {{ this.todos.filter(e => e.completed).length }} / {{ this.todos.length }}</div>
     <ul class="todo-list">
       <li v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
         <input type = "checkbox" v-model="todo.completed">
@@ -67,5 +73,9 @@ input {
 li.completed label{
   text-decoration: line-through;
   color: red;
+}
+
+ul {
+    list-style-type: none;
 }
 </style>
