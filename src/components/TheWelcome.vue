@@ -7,13 +7,14 @@ export default {
       newTodo: "",
       todos: [{
         id: todoId++,
-        task:' Try this todo'
+        task:' Try this todo', 
+        completed: false
       }]
     }
   }, 
   methods : {
     addTodo(){
-      this.todos.push({id : todoId++, task : this.newTodo})
+      this.todos.push({id : todoId++, task : this.newTodo, completed : false})
       this.newTodo = ""
     },
     removeToDo(todo){
@@ -36,16 +37,16 @@ export default {
       <input type="text" placeholder="Add Task" v-model="newTodo" />
       <button type="submit">Add</button>
     </form>
-    <ul>
-      <li v-for="todo in todos" :key="todo.id">
-        <input type = "checkbox">
+    <ul class="todo-list">
+      <li v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
+        <input type = "checkbox" v-model="todo.completed">
         <label>
           {{ todo.task }}
         </label>
         <button @click="removeToDo(todo)">x</button>
       </li>
     </ul>
-    <button @click="reset()">reset</button>
+    <button @click="reset()">Clear All</button>
   </div>
 </template>
 
@@ -61,5 +62,10 @@ h1 {
 
 input {
   text-align: center;
+}
+
+li.completed label{
+  text-decoration: line-through;
+  color: red;
 }
 </style>
