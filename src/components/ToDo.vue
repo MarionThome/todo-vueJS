@@ -45,7 +45,7 @@ export default {
 
 <template>
   <div id="main">
-    <h1>Todo</h1>
+    <h1>My ToDo List</h1>
     <Form @add="addTodo" :newTodo="this.newTodo"></Form>
     <div> Completed : {{ this.todos.filter(e => e.completed).length }} / {{ this.todos.length }} </div>
     <List :todos="this.todos" @remove="removeToDo" />
