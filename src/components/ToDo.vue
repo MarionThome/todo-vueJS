@@ -12,6 +12,7 @@ export default {
     return {
       clicked: 0,
       hideCompleted : false, 
+      completeAllTasks : false,
       todos: [
         {
           id: todoId++,
@@ -48,6 +49,10 @@ export default {
     reset() {
       this.todos = [];
     },
+    completeAll(e){
+      this.completeAllTasks = !this.completeAllTasks
+      this.todos.forEach((todo) => (todo.completed = e.target.checked))
+    }
   },
   computed : {
     filtered(){
@@ -67,10 +72,14 @@ export default {
     <input type="checkbox" v-model="hideCompleted"/>
     <span>Hide completed</span>
     </div>
+    <div>
+    <input type="checkbox" @change="completeAll"/>
+    <span v-if="completeAllTasks">Unselect all</span>
+    <span v-else> Select all</span>
+    </div>
     <button v-if = "todos.some(e => e.completed)" @click="removeChideompleted()">Delete Completed</button>
     <button @click="reset()">Delete All</button>
     <div>
-
     </div>
   </div>
 </template>
