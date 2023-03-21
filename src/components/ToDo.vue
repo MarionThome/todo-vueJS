@@ -2,6 +2,7 @@
 <script>
 import List from "./List.vue"
 import Form from "./Form.vue"
+import { watch } from "vue";
 let todoId = 0;
 
 export default {
@@ -11,17 +12,17 @@ export default {
   data() {
     return {
       clicked: 0,
-      hideCompleted : false, 
-      completeAllTasks : false,
+      hideCompleted: false,
+      completeAllTasks: false,
       todos: [
         {
           id: todoId++,
-          priority : 1,
+          priority: 1,
           task: "Try this todo",
           completed: false,
         },
       ],
-      priorities : ["low", "medium", "high"]
+      priorities: ["low", "medium", "high"]
     }
   },
   methods: {
@@ -34,31 +35,39 @@ export default {
       });
       this.newTodo = "";
     },
-    changePriority({id, prio}){
+    changePriority({ id, prio }) {
       todos[id].priority = prio
-    }, 
+    },
     removeToDo(todo) {
       console.log(todo);
       this.todos = this.todos.filter((t) => {
         return t !== todo;
       });
     },
-    removeCompleted(){
+    removeCompleted() {
       this.todos = this.todos.filter(e => !e.completed)
-    }, 
+    },
     reset() {
       this.todos = [];
     },
-    completeAll(e){
+    completeAll(e) {
       this.completeAllTasks = !this.completeAllTasks
       this.todos.forEach((todo) => (todo.completed = e.target.checked))
+    },
+    checkCompletion() {
+      if (this.todos.every(e => e.completed)) {
+        this.completeAllTasks = true
+      }
+    },
+  },
+  computed: {
+    filtered() {
+      return this.hideCompleted ? this.todos.filter(e => !e.completed) : this.todos
+    }, 
+    isAllTaskCompleted(){
+      return this.todos.every(e => e.completed)
     }
   },
-  computed : {
-    filtered(){
-      return this.hideCompleted ? this.todos.filter(e => !e.completed) : this.todos 
-    }
-  }
 }
 </script>
 
@@ -67,17 +76,18 @@ export default {
     <h1>My ToDo List</h1>
     <Form :priorities="this.priorities" @add="addTodo" :newTodo="this.newTodo"></Form>
     <div> Completed : {{ this.todos.filter(e => e.completed).length }} / {{ this.todos.length }} </div>
-    <List :todos="this.filtered.sort((a,b) => b.priority - a.priority)" :priorities="this.priorities" @remove="removeToDo" />
+    <List :todos="this.filtered.sort((a, b) => b.priority - a.priority)" :priorities="this.priorities"
+      @remove="removeToDo" />
     <div>
-    <input type="checkbox" v-model="hideCompleted"/>
-    <span>Hide completed</span>
+      <input type="checkbox" v-model="hideCompleted" />
+      <span>Hide completed</span>
     </div>
     <div>
-    <input type="checkbox" @change="completeAll"/>
-    <span v-if="completeAllTasks">Unselect all</span>
-    <span v-else> Select all</span>
+      <input type="checkbox" @change="completeAll" />
+      <span v-if="isAllTaskCompleted">Unselect all</span>
+      <span v-else> Select all</span>
     </div>
-    <button v-if = "todos.some(e => e.completed)" @click="removeChideompleted()">Delete Completed</button>
+    <button v-if="todos.some(e => e.completed)" @click="removeCompleted()">Delete Completed</button>
     <button @click="reset()">Delete All</button>
     <div>
     </div>
