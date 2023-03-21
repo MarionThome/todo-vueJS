@@ -1,24 +1,46 @@
 <script>
+import DropDown from "./Dropdown.vue"
+
 export default {
-    data(){
+  components : {
+    DropDown
+  },
+  props : {
+    priorities : {
+      type : Array, 
+      required : true
+    }
+  },
+  data() {
     return {
-      newTodo: "",
+      newTodo: {
+        name: "",
+        priority: 0
+      },
     };
   },
   methods: {
     addTodo() {
       this.$emit("add", this.newTodo);
-      this.newTodo = "";
+      this.newTodo = {
+        name: "",
+        priority: 0
+      };
+    },
+    setPriority(priority) {
+      this.newTodo.priority = this.priorities.indexOf(priority);
     },
   }
 }
 </script>
 
 <template>
-    <form @submit.prevent="addTodo">
-        <input type="text" placeholder="Add Task" v-model="newTodo" />
-        <button type="submit" :disabled="!newTodo">Add</button>
-    </form>
+  <form @submit.prevent="addTodo">
+    <input type="text" placeholder="Add Task" v-model="newTodo.name" />
+    <label for="priority">Priority</label>
+    <DropDown :priorities="priorities" @setPriority="setPriority" :toBeUpdated="false"/>
+    <button type="submit" :disabled="!newTodo.name">Add</button>
+  </form>
 </template>
 
 <style>
@@ -29,10 +51,12 @@ input {
   color: rgba(235, 235, 235, 0.64);
   margin-bottom: 10px;
 }
+
 input:focus {
   outline: none;
 }
-button{
-  cursor:pointer
+
+button {
+  cursor: pointer
 }
 </style>

@@ -1,23 +1,31 @@
 <script>
-    export default {
+import Task from "./Task.vue"
+
+export default {
+  components: {
+    Task
+  },
   props: {
     todos: {
       type: Array,
       required: true,
     },
+    priorities : {
+      type : Array,
+      required : true
+    }
   },
+  methods: {
+  remove(todo) {
+    this.$emit('remove', todo);
+  }, 
+}
 };
 </script>
 
 <template>
     <ul class="todo-list">
-      <li v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed }">
-        <input type = "checkbox" v-model="todo.completed">
-        <label>
-          {{ todo.task }}
-        </label>
-        <button @click="$emit('remove', todo)">x</button>
-      </li>
+     <Task v-for="todo in todos" :todo = "todo" :priorities = "priorities" @remove="remove(todo)" :key="todo.id"/>
     </ul>
 </template>
 
