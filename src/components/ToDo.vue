@@ -74,22 +74,31 @@ export default {
 <template>
   <div id="main">
     <h1>My ToDo List</h1>
-    <Form :priorities="this.priorities" @add="addTodo" :newTodo="this.newTodo"></Form>
-    <div> Completed : {{ this.todos.filter(e => e.completed).length }} / {{ this.todos.length }} </div>
-    <List :todos="this.filtered.sort((a, b) => b.priority - a.priority)" :priorities="this.priorities"
-      @remove="removeToDo" />
-    <div>
-      <input type="checkbox" v-model="hideCompleted" />
-      <span>Hide completed</span>
-    </div>
-    <div>
-      <input type="checkbox" @change="completeAll" />
-      <span v-if="isAllTaskCompleted">Unselect all</span>
-      <span v-else> Select all</span>
-    </div>
-    <button v-if="todos.some(e => e.completed)" @click="removeCompleted()">Delete Completed</button>
-    <button @click="reset()">Delete All</button>
-    <div>
+    <div id="todoContainer">
+      <div>
+        <Form :priorities="this.priorities" @add="addTodo" :newTodo="this.newTodo"></Form>
+        <div id="completion"> Completed : {{ this.todos.filter(e => e.completed).length }} / {{ this.todos.length }} </div>
+      </div>
+      
+        <List :todos="this.filtered.sort((a, b) => b.priority - a.priority)" :priorities="this.priorities"
+          @remove="removeToDo" />
+
+      
+        <div>
+        <div>
+          <input type="checkbox" v-model="hideCompleted" />
+          <span>Hide completed</span>
+        </div>
+        <div>
+          <input type="checkbox" @change="completeAll" />
+          <span v-if="isAllTaskCompleted">Unselect all</span>
+          <span v-else> Select all</span>
+        </div>
+        <div>
+          <button v-if="todos.some(e => e.completed)" @click="removeCompleted()">Delete Completed</button>
+          <button @click="reset()">Delete All</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -102,9 +111,38 @@ h1 {
 #main {
   display: flex;
   flex-direction: column;
+  color: black;
+  height: 100vh;
 }
-
 input {
   text-align: center;
 }
+#todoContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  margin: auto;
+  height: 90vh;
+  width:90vw;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 30px;
+    border-radius: 10px;
+}
+#completion{
+  font-size: 14px
+}
+@media (min-width: 481px) {
+  #main{
+    width : 600px;
+    align-items: center;
+    height: 500px;
+    font-size: 16px;
+  }
+  #todoContainer{
+    min-height: 500px;
+    width: 400px;
+  }
+}
 </style>
+

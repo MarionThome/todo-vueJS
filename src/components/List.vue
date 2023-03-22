@@ -38,5 +38,7 @@ li.completed label{
 
 ul {
     list-style-type: none;
+    padding: 0px;
+    height: 200px;
 }
 </style>

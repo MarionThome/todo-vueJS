@@ -36,27 +36,58 @@ export default {
 
 <template>
   <form @submit.prevent="addTodo">
-    <input type="text" placeholder="Add Task" v-model="newTodo.name" />
-    <label for="priority">Priority</label>
-    <DropDown :priorities="priorities" @setPriority="setPriority" :toBeUpdated="false"/>
-    <button type="submit" :disabled="!newTodo.name">Add</button>
+    <input type="text" id="taskField" placeholder="Add Task" v-model="newTodo.name" />
+    <div>
+      <DropDown :priorities="priorities" @setPriority="setPriority" :toBeUpdated="false"/>
+    </div>
+    <button type="submit" :disabled="!newTodo.name" id="submitButton">+</button>
   </form>
 </template>
 
 <style>
-input {
-  background-color: #181818;
+#taskField {
   border: none;
-  border-bottom: 1px solid rgba(235, 235, 235, 0.64);
-  color: rgba(235, 235, 235, 0.64);
+  border-bottom: 1px solid rgba(235, 235, 235, 1);
+  color: black;
   margin-bottom: 10px;
-}
+  width : 100%;
+  font-size: 16px;
 
+}
+form {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 input:focus {
   outline: none;
 }
 
-button {
-  cursor: pointer
+#submitButton {
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius:  50%;
+  height: 50px;
+  width: 50px;
+  border: none;
+  background-color : #fdbc73;
+  color : white;
+  font-size : 30px;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.46) 0px 1px 4px;
+}
+#submitButton:hover{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+#submitButton:disabled{
+  opacity: 50%;
+  box-shadow: none;
+}
+
+@media (min-width: 481px) {
+  #taskField{
+    width : 300px;
+  }
 }
 </style>

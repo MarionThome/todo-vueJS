@@ -19,7 +19,7 @@ export default {
 
 <template>
     <li :key="todo.id" :class="{ completed: todo.completed }">
-        <input type="checkbox" v-model="todo.completed">
+        <input class="check" type="checkbox" v-model="todo.completed">
         <label>
             {{ todo.task }}
         </label>
@@ -28,4 +28,15 @@ export default {
     </li>
 </template>
 
-<style></style>
+<style>
+li{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.check{
+    margin-bottom: 0px;
+}
+
+</style>
