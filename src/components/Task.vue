@@ -1,5 +1,7 @@
 <script>
+import { store } from "../store";
 import DropDown from "./Dropdown.vue"
+
 export default {
     components : {
         DropDown
@@ -13,7 +15,11 @@ export default {
             type: Array, 
             required : true
         }
+    },
+    data() {
+        return {store}
     }
+    
 }
 </script>
 
@@ -24,7 +30,7 @@ export default {
             {{ todo.task }}
         </label>
         <p>Priority : {{ priorities[todo.priority] }}</p>
-        <button @click="$emit('remove', todo)">x</button>
+        <button @click="store.removeToDo(todo)">x</button>
     </li>
 </template>
 

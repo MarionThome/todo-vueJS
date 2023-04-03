@@ -1,18 +1,14 @@
 <script>
 import DropDown from "./Dropdown.vue"
+import { store } from "../store";
 
 export default {
   components : {
     DropDown
   },
-  props : {
-    priorities : {
-      type : Array, 
-      required : true
-    }
-  },
   data() {
     return {
+      store,
       newTodo: {
         name: "",
         priority: 0
@@ -20,25 +16,25 @@ export default {
     };
   },
   methods: {
-    addTodo() {
-      this.$emit("add", this.newTodo);
+    addTodo(task) {
+      store.addTodo(task)
       this.newTodo = {
         name: "",
         priority: 0
-      };
+      }
     },
     setPriority(priority) {
-      this.newTodo.priority = this.priorities.indexOf(priority);
-    },
+      this.newTodo.priority = store.priorities.indexOf(priority);
+    }
   }
 }
 </script>
 
 <template>
-  <form @submit.prevent="addTodo">
+  <form @submit.prevent="addTodo(newTodo)">
     <input type="text" id="taskField" placeholder="Add Task" v-model="newTodo.name" />
     <div>
-      <DropDown :priorities="priorities" @setPriority="setPriority" :toBeUpdated="false"/>
+      <DropDown :priorities="store.priorities" @setPriority="setPriority" :toBeUpdated="false"/>
     </div>
     <button type="submit" :disabled="!newTodo.name" id="submitButton">+</button>
   </form>

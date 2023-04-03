@@ -1,31 +1,28 @@
 <script>
 import Task from "./Task.vue"
-
+import { store } from "../store";
+console.log(store.todos)
 export default {
   components: {
     Task
   },
-  props: {
+  data() {
+    return {
+      store
+    }
+},
+props: {
     todos: {
       type: Array,
       required: true,
-    },
-    priorities : {
-      type : Array,
-      required : true
     }
-  },
-  methods: {
-  remove(todo) {
-    this.$emit('remove', todo);
-  }, 
-}
+  }
 };
 </script>
 
 <template>
     <ul class="todo-list">
-     <Task v-for="todo in todos" :todo = "todo" :priorities = "priorities" @remove="remove(todo)" :key="todo.id"/>
+     <Task v-for="todo in todos" :todo = "todo" :priorities = "store.priorities" @remove="store.remove(todo)" :key="todo.id"/>
     </ul>
 </template>
 

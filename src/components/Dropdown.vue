@@ -1,4 +1,5 @@
 <script>
+import { store } from '../store';
 export default {
     props: {
         priorities: {
@@ -16,9 +17,9 @@ export default {
     },
     methods: {
         setPriority(event) {
-            if (!this.toBeUpdated) {
-                this.$emit('setPriority', event.target.value)
-            }
+            console.log(event)
+            this.$emit('setPriority', event.target.value)
+
         }
     }
 }
