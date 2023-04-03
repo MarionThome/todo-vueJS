@@ -37,5 +37,6 @@ ul {
     list-style-type: none;
     padding: 0px;
     height: 200px;
+    overflow-y: scroll;
 }
 </style>
