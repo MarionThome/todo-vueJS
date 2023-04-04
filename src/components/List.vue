@@ -30,7 +30,8 @@ props: {
 
 li.completed label{
   text-decoration: line-through;
-  color: red;
+  color: #a698ae
+
 }
 
 ul {
@@ -38,5 +39,8 @@ ul {
     padding: 0px;
     height: 200px;
     overflow-y: scroll;
+    border-bottom: 1px solid;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgba(235, 235, 235, 1)
 }
 </style>

@@ -40,17 +40,17 @@ export default {
 
       
         <div>
-        <div>
-          <input type="checkbox" v-model="hideCompleted" />
+        <div class="hideSelect">
           <span>Hide completed</span>
+          <input type="checkbox" v-model="hideCompleted" />
         </div>
-        <div>
-          <input type="checkbox" @change="store.completeAll" />
+        <div class="hideSelect">
           <span>select all</span>
+          <input type="checkbox" @change="store.completeAll" />
         </div>
-        <div>
-          <button v-if="store.todos.some(e => e.completed)" @click="store.removeCompleted()">Delete Completed</button>
-          <button @click="store.reset()">Delete All</button>
+        <div id="buttonContainer">
+          <button class="removeButtons" @click="store.reset()">Delete All</button>
+          <button class="removeButtons" id="deleteAll" v-if="store.todos.some(e => e.completed)" @click="store.removeCompleted()">Delete Completed</button>
         </div>
       </div>
     </div>
@@ -60,6 +60,7 @@ export default {
 <style>
 h1 {
   text-align: center;
+  margin : 20px auto
 }
 
 #main {
@@ -71,6 +72,14 @@ h1 {
 input {
   text-align: center;
 }
+input[type=checkbox] {
+  margin-right: 10px;
+  accent-color:  #ba71e4;
+  width: 15px;
+  height: 15px;
+
+}
+
 #todoContainer{
   display: flex;
   flex-direction: column;
@@ -84,7 +93,39 @@ input {
     border-radius: 10px;
 }
 #completion{
-  font-size: 14px
+  font-size: 14px;
+  margin-bottom : 10px
+}
+.removeButtons {
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius:  50px;
+  padding: 10px 20px;
+  border: none;
+  background-color : #fdbc73;
+  color : white;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.36) 0px 1px 4px;
+}
+.removeButtons:hover{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+#buttonContainer{
+  display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#deleteAll{
+  background-color: rgb(243, 134, 160);
+}
+
+.hideSelect{
+  text-align: end;
+}
+.hideSelect span{
+  margin-right: 10px;
 }
 @media (min-width: 481px) {
   #main{
