@@ -15,7 +15,6 @@ export const store = reactive({
     this.todos.push({
       id: todoId++,
       task: newTodo.name,
-      priority: newTodo.priority,
       completed: false,
     });
     this.newTodo = "";
@@ -49,5 +48,29 @@ export const store = reactive({
     }, 
     isAllTaskCompleted(){
       return this.todos.every(e => e.completed)
+    },
+    modifyTask(id, newTask){
+      return this.todos = this.todos.map((e) => {
+        if(id === e.id){
+          return {
+            ...e, 
+            task : newTask
+          }
+        } else {
+          return e
+        }
+      })
+    },
+    updatePriority(id, newPriority){
+      return this.todos = this.todos.map((e) => {
+        if(id === e.id){
+          return {
+            ...e, 
+            priority : newPriority
+          }
+        } else {
+          return e
+        }
+      })
     }
 });

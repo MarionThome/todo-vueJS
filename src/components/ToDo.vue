@@ -136,7 +136,7 @@ input[type=checkbox] {
   }
   #todoContainer{
     min-height: 500px;
-    width: 400px;
+    width: 450px;
   }
 }
 </style>

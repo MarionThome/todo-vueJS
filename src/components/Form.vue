@@ -83,7 +83,7 @@ input:focus {
 
 @media (min-width: 481px) {
   #taskField{
-    width : 300px;
+    width : 400px;
   }
 }
 </style>

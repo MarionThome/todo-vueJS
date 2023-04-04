@@ -17,23 +17,21 @@ export default {
     },
     methods: {
         setPriority(event) {
-            console.log(event)
             this.$emit('setPriority', event.target.value)
-
         }
     }
 }
 </script>
 
 <template>
-    <select name="priority" id="priority" @change="setPriority">
+    <select name="priority" id="prioritySet" @change="setPriority">
         <option :value="default">Set priority</option>
         <option v-for="prio in priorities" :value="prio">{{ prio }}</option>
     </select>
 </template>
 
 <style>
-select {
+#prioritySet {
     width: 100%;
     text-align: center;
     height: 30px;
@@ -44,8 +42,8 @@ select {
 }
 
 @media (min-width: 481px) {
-    select {
-        width: 300px;
+    #prioritySet {
+        width: 400px;
     }
 }
 </style>
