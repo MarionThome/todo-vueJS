@@ -25,6 +25,7 @@ export default {
     },
     setPriority(priority) {
       this.newTodo.priority = store.priorities.indexOf(priority);
+      console.log("new", this.newTodo)
     }
   }
 }

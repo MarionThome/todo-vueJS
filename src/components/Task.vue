@@ -22,12 +22,13 @@ export default {
             store,
             newTask: this.todo.task,
             toModify: false,
-            updatePrio: true,
+            updatePrio: false,
         }
     },
     methods: {
         modify() {
             if (this.toModify && this.newTask !== this.todo.task) {
+                console.log(this.todo)
                 store.modifyTask(this.todo.id, this.newTask)
             }
             // this.focusInput()

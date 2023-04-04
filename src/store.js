@@ -15,6 +15,7 @@ export const store = reactive({
     this.todos.push({
       id: todoId++,
       task: newTodo.name,
+      priority: newTodo.priority || 1,
       completed: false,
     });
     this.newTodo = "";
